@@ -76,6 +76,8 @@ async function initDatabases() {
       database: process.env.MYSQL_DATABASE || "aihumanizer_db",
       waitForConnections: true,
       connectionLimit: 10,
+      ssl: {
+    rejectUnauthorized: false}
     });
     console.log("✓ Successfully connected to MySQL");
 

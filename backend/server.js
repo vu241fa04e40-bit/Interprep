@@ -15,6 +15,7 @@ import nodemailer from "nodemailer";
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', 1); // Add this line to trust Render's proxy
 const PORT = process.env.PORT || 5050;
 const JWT_SECRET =
   process.env.JWT_SECRET || "interprep_super_secret_jwt_key_2026";

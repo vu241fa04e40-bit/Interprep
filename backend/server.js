@@ -317,6 +317,11 @@ function analyzeSentenceMapping(text) {
   return { ensembleScore, sentenceList };
 }
 
+app.get('/api/test', (req, res) => {
+    console.log("✅ HEALTH CHECK: The server is alive and logs are working!");
+    res.status(200).json({ message: "Backend is connected!" });
+});
+
 // ==========================================
 // 5. AUTHENTICATION & RECOVERY ROUTES
 // ==========================================
@@ -343,6 +348,7 @@ app.post("/api/auth/register", async (req, res) => {
   } catch (err) {
     if (err instanceof z.ZodError)
       return res.status(400).json({ error: err.errors[0].message });
+    console.error("🚨 DATABASE ERROR:", error);
     res
       .status(500)
       .json({ error: "Database error occurred during registration." });

@@ -57,6 +57,7 @@ const generationLimiter = rateLimit({
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // Database Pools
+let mysqlPool;
 let mongoDb;
 
 const transporter = nodemailer.createTransport({

@@ -325,7 +325,9 @@ app.get('/api/test', (req, res) => {
 // ==========================================
 // 5. AUTHENTICATION & RECOVERY ROUTES
 // ==========================================
-app.post("/api/auth/register", async (req, res) => {
+aapp.post('/api/auth/register', async (req, res) => {
+    console.log("🚨 [DEBUG] Registration route was successfully triggered!");
+    console.log("🚨 [DEBUG] Data received from frontend:", req.body);
   try {
     const { username, email, password } = registerSchema.parse(req.body);
     const [existing] = await mysqlPool.query(

@@ -86,7 +86,7 @@ export default function App() {
     const timer = setTimeout(async () => {
       if (inputText.trim().length >= 15 && token) {
         try {
-          const res = await fetch("http://localhost:5050/api/detect-ai", {
+          const res = await fetch("https://interprep-zhtu.onrender.com/api/detect-ai", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -110,7 +110,7 @@ export default function App() {
 
   const fetchHistory = async () => {
     try {
-      const res = await fetch("http://localhost:5050/api/history", {
+      const res = await fetch("https://interprep-zhtu.onrender.com/api/history", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) setHistory(await res.json());
@@ -127,7 +127,7 @@ export default function App() {
       authView === "register" ? "/api/auth/register" : "/api/auth/login";
 
     try {
-      const res = await fetch(`http://localhost:5050${endpoint}`, {
+      const res = await fetch(`https://interprep-zhtu.onrender.com${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(authFormData),
@@ -156,7 +156,7 @@ export default function App() {
     setAuthMessage(null);
     try {
       const res = await fetch(
-        "http://localhost:5050/api/auth/forgot-password",
+        "https://interprep-zhtu.onrender.com/api/auth/forgot-password",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -177,7 +177,7 @@ export default function App() {
     setAuthError(null);
     setAuthMessage(null);
     try {
-      const res = await fetch("http://localhost:5050/api/auth/reset-password", {
+      const res = await fetch("https://interprep-zhtu.onrender.com/api/auth/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -210,7 +210,7 @@ export default function App() {
         threadId: activeThreadId,
       };
 
-      const res = await fetch("http://localhost:5050/api/humanize", {
+      const res = await fetch("https://interprep-zhtu.onrender.com/api/humanize", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -259,7 +259,7 @@ export default function App() {
         "Guest accounts cannot persist personalized learning weights.",
       );
     try {
-      const res = await fetch("http://localhost:5050/api/feedback/edit", {
+      const res = await fetch("https://interprep-zhtu.onrender.com/api/feedback/edit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -298,7 +298,7 @@ export default function App() {
   const handleRenameActive = async () => {
     if (activeThreadId && !isGuest && activeTitle.trim()) {
       await fetch(
-        `http://localhost:5050/api/threads/${activeThreadId}/rename`,
+        `https://interprep-zhtu.onrender.com/api/threads/${activeThreadId}/rename`,
         {
           method: "PUT",
           headers: {
@@ -314,7 +314,7 @@ export default function App() {
 
   const handleDeleteActiveChat = async () => {
     if (activeThreadId && !isGuest) {
-      await fetch(`http://localhost:5050/api/threads/${activeThreadId}`, {
+      await fetch(`https://interprep-zhtu.onrender.com/api/threads/${activeThreadId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -342,7 +342,7 @@ export default function App() {
         );
       } else {
         await fetch(
-          `http://localhost:5050/api/threads/${item.thread_id}/rename`,
+          `https://interprep-zhtu.onrender.com/api/threads/${item.thread_id}/rename`,
           {
             method: "PUT",
             headers: {
@@ -362,7 +362,7 @@ export default function App() {
     if (isGuest)
       return setGuestHistory(guestHistory.filter((item) => item.id !== id));
     try {
-      await fetch(`http://localhost:5050/api/history/${id}`, {
+      await fetch(`https://interprep-zhtu.onrender.com/api/history/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

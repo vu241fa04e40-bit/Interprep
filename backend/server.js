@@ -26,9 +26,9 @@ const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-1.5-flash";
 app.use(helmet());
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    credentials: true,
-  }),
+    origin:['http://localhost:3000', 'https://interprep-mauve.vercel.app'],
+    credentials: true
+  })
 );
 app.use(express.json({ limit: "1mb" }));
 

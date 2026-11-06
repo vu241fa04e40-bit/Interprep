@@ -348,13 +348,9 @@ app.post('/api/auth/register', async (req, res) => {
 
     res.status(201).json({ message: "Registration complete. Please log in." });
   } catch (err) {
-    if (err instanceof z.ZodError)
-      return res.status(400).json({ error: err.errors[0].message });
-    console.error("🚨 DATABASE ERROR:", error);
-    res
-      .status(500)
-      .json({ error: "Database error occurred during registration." });
-  }
+    console.error("🚨 DATABASE ERROR:", err);
+    res.status(500).json({ message: "Database error occurred during registration" });
+}
 });
 
 app.post("/api/auth/login", async (req, res) => {

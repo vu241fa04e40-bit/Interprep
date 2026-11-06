@@ -57,7 +57,6 @@ const generationLimiter = rateLimit({
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // Database Pools
-let mysqlPool;
 let mongoDb;
 
 const transporter = nodemailer.createTransport({
@@ -70,16 +69,16 @@ const transporter = nodemailer.createTransport({
 
 async function initDatabases() {
   try {
-    mysqlPool = mysql.createPool({
-      host: process.env.MYSQL_HOST || "localhost",
-      user: process.env.MYSQL_USER || "root",
-      password: process.env.MYSQL_PASSWORD || "",
-      database: process.env.MYSQL_DATABASE || "aihumanizer_db",
-      waitForConnections: true,
-      connectionLimit: 10,
-      ssl: {
-    rejectUnauthorized: false}
-    });
+    const pool = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 12512, // Forces it to use your Aiven port
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
     console.log("✓ Successfully connected to MySQL");
 
     const mongoClient = new MongoClient(

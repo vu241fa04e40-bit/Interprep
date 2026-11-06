@@ -325,7 +325,7 @@ app.get('/api/test', (req, res) => {
 // ==========================================
 // 5. AUTHENTICATION & RECOVERY ROUTES
 // ==========================================
-aapp.post('/api/auth/register', async (req, res) => {
+app.post('/api/auth/register', async (req, res) => {
     console.log("🚨 [DEBUG] Registration route was successfully triggered!");
     console.log("🚨 [DEBUG] Data received from frontend:", req.body);
   try {

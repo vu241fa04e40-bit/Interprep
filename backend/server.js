@@ -528,7 +528,7 @@ app.post(
 
       // Exponential Backoff Retry Loop for 503 / 429 Demand Spikes
       // Model Waterfall: Dynamically jump to less congested servers if one is full
-    const backupModels = ['gemini-3.8-flash', 'gemini-3.5-flash-lite', 'gemini-2.5-pro'];
+    const backupModels = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.6-flash'];
     let response;
     let successfulModel = null;
 

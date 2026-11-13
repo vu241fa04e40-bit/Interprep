@@ -11,6 +11,7 @@ import jwt from "jsonwebtoken";
 import { GoogleGenAI } from "@google/genai";
 import * as Diff from "diff";
 import nodemailer from "nodemailer";
+import mongoose from "mongoose";
 
 dotenv.config();
 
@@ -67,6 +68,15 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+const conversionLogSchema = new mongoose.Schema({
+  user_id: Number,
+  thread_id: Number,
+  original_text: String,
+  refined_text: String,
+  tone: String,
+  mode: String,
+  created_at: { type: Date, default: Date.now }
+});
 
 async function initDatabases() {
   try {
@@ -90,19 +100,7 @@ async function initDatabases() {
     console.log("✓ Successfully connected to MongoDB");
   } catch (err) {
     console.error("Database connection error:", err.message);
-  }
-  const conversionLogSchema = new mongoose.Schema({
-  user_id: Number,
-  thread_id: Number,
-  original_text: String,
-  refined_text: String,
-  tone: String,
-  mode: String,
-  created_at: { type: Date, default: Date.now }
-});
-
-const ConversionLog = mongoose.model("ConversionLog", conversionLogSchema);
-}
+  }}
 initDatabases();
 
 // ==========================================

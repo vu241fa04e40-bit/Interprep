@@ -91,6 +91,17 @@ async function initDatabases() {
   } catch (err) {
     console.error("Database connection error:", err.message);
   }
+  const conversionLogSchema = new mongoose.Schema({
+  user_id: Number,
+  thread_id: Number,
+  original_text: String,
+  refined_text: String,
+  tone: String,
+  mode: String,
+  created_at: { type: Date, default: Date.now }
+});
+
+const ConversionLog = mongoose.model("ConversionLog", conversionLogSchema);
 }
 initDatabases();
 
@@ -639,8 +650,8 @@ app.post(
       if (req.user.id !== "guest") {
         await mysqlPool.query(
           `INSERT INTO conversions 
-        (user_id, thread_id, original_text, refined_text, mode, tone, custom_tone, similarity_score, passed_threshold) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          (user_id, thread_id, original_text, refined_text, mode, tone, custom_tone, similarity_score, passed_threshold) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             req.user.id,
             activeThreadId,
@@ -653,6 +664,14 @@ app.post(
             similarityScore >= 80,
           ],
         );
+        await ConversionLog.create({
+            user_id,
+            threadId,
+            original_text,
+            refinedText,
+            tone,
+            mode
+});
       }
 
       const diffAnalysis = Diff.diffWords(text, refinedText);
